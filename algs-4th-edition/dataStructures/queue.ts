@@ -15,8 +15,8 @@ class MyNode<Item> {
 class LinkedListQueue<Item> implements Queue<Item>{
 
     private length: number = 0;
-    private head: (MyNode<Item> | null);
-    private tail: (MyNode<Item> | null);
+    private head: (MyNode<Item> | null) = null;
+    private tail: (MyNode<Item> | null) = null;
     enqueue(item: Item) {
         let node = new MyNode(item)
         if (this.isEmpty()) {
@@ -24,8 +24,8 @@ class LinkedListQueue<Item> implements Queue<Item>{
             this.tail = node;
         }
         else {
-            this.tail.next = node;
-            this.tail = this.tail.next;
+            this.tail!.next = node;
+            this.tail = this.tail!.next;
         }
         this.length++;
     }
@@ -33,10 +33,10 @@ class LinkedListQueue<Item> implements Queue<Item>{
         if (this.isEmpty()) {
             throw new Error("Queue is empty");
         }
-        let returned = this.head.item;
-        this.head = this.head.next;
+        let returned = this.head!.item;
+        this.head = this.head!.next;
         this.length--;
-        return returned;
+        return returned as Item;
     }
     isEmpty(): boolean {
         return this.length === 0

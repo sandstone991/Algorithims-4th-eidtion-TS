@@ -1,1 +1,5 @@
 tsconfig.json
+js
+/test
+node_modules
+

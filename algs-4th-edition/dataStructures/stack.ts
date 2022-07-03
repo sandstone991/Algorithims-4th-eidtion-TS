@@ -16,7 +16,7 @@ class FixedCapacityStack<Item> implements Stack<Item>{
         }
     }
     pop(): Item {
-        return this.stack.pop()
+        return this.stack.pop() as Item
     }
     isEmpty(): boolean {
         return !!this.size()
@@ -34,7 +34,7 @@ class ResizingArrayStack<Item> implements Stack<Item>{
         this.stack.push(item)
     }
     pop(): Item {
-        return this.stack.pop()
+        return this.stack.pop() as Item
     }
     isEmpty(): boolean {
         return !!this.size()
@@ -44,18 +44,10 @@ class ResizingArrayStack<Item> implements Stack<Item>{
     }
 }
 //Linked list to implement dynamic stack
-class MyNode<Item> {
-    item: Item | null;
-    next: MyNode<Item> | null;
-    constructor(item: Item | null = null) {
-        this.item = item;
-        this.next = null
-    }
-}
 class LinkedListStack<Item> implements Stack<Item>{
 
     private length: number = 0;
-    private head: (MyNode<Item> | null);
+    private head: (MyNode<Item> | null) = null;
     push(item: Item) {
         let oldHead = this.head;
         let newHead = new MyNode(item);
@@ -67,10 +59,10 @@ class LinkedListStack<Item> implements Stack<Item>{
         if (this.isEmpty()) {
             throw new Error("Stack is empty");
         }
-        let returned = this.head.item;
-        this.head = this.head.next;
+        let returned = this.head!.item;
+        this.head = this.head!.next;
         this.length--;
-        return returned;
+        return returned as Item;
     }
     isEmpty(): boolean {
         return this.length === 0

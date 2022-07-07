@@ -1,16 +1,16 @@
-interface StopWatch {
-    /*
-    *@return {number} time since created in seconds
-    */
-    elapsedTime(): number
+interface StopWatchInterface {
+    now(): number
 }
-class StopWatch implements StopWatch {
-    private readonly timeStamp: number;
+class StopWatch implements StopWatchInterface {
+    private timeStamp: number;
     constructor() {
         this.timeStamp = Date.now();
     }
-    elapsedTime(): number {
-        return (Date.now() - this.timeStamp) / 1000;
+
+    now(): number {
+        let res = Date.now() - this.timeStamp;
+        this.timeStamp = Date.now();
+        return res
     }
 }
 export default StopWatch;

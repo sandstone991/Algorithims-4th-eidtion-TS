@@ -7,6 +7,7 @@ export default function doublingTest(N: number, toBeTested: Function): number {
         a[i] = randomIntNum(-MAX, MAX);
     }
     let timer = new StopWatch();
+    timer.now()
     let cnt = toBeTested(a);
-    return timer.elapsedTime()
+    return timer.now()
 }

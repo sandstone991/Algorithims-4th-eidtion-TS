@@ -93,12 +93,12 @@ function imporvedMergeSortTopDown<T>(a: T[], less: (x: T, y: T) => boolean): voi
     let aux: T[] = [...a];
     (function sort(a: T[], aux: T[], low: number, high: number): void {
         if (high <= low) return;
-        // if (high - low <= 15) return insertionSortWithBounds(a, low, high, less);
+        if (high - low <= 15) return insertionSortWithBounds(a, low, high, less);
         let mid: number = Math.floor((high - low) / 2) + low;
         sort(aux, a, low, mid)        //sort left arr
         sort(aux, a, mid + 1, high); //sort right arr
-        // if (a[mid] > a[mid + 1])
-        merge(a, aux, low, mid, high);
+        if (a[mid] > a[mid + 1])
+            merge(a, aux, low, mid, high);
     })(aux, a, 0, a.length - 1)
     function merge(a: T[], aux: T[], low: number, mid: number, high: number): void {
         let i = low, j = mid + 1

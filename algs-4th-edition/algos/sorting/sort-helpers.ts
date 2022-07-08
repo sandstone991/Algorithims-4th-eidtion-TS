@@ -8,4 +8,7 @@ function isSorted<T>(a: T[], less: (x: T, y: T) => boolean): boolean {
     }
     return true
 }
-export { exch, sortingAlgo, isSorted }
+let numberAscending = (x: number, y: number) => {
+    return x - y < 0 ? true : false;
+}
+export { exch, sortingAlgo, isSorted, numberAscending }

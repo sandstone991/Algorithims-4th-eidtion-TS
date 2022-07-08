@@ -1,4 +1,5 @@
 import { insertionSortWithBounds } from "./insertion-sort";
+import LinkedListQueue from "../../dataStructures/queue";
 //Recursive
 function mergeSortTopDown<T>(a: T[], less: (x: T, y: T) => boolean): void {
     let aux: T[] = Array(a.length);
@@ -114,4 +115,24 @@ function imporvedMergeSortTopDown<T>(a: T[], less: (x: T, y: T) => boolean): voi
         }
     }
 }
-export { mergeSortTopDown, mergeSortBottomUp, fasterMerge, imporvedMergeSortTopDown }
+function mergeSortedQueues<T>(queue1: LinkedListQueue<T>, queue2: LinkedListQueue<T>, less: (x: T, y: T) => boolean): LinkedListQueue<T> {
+    let res = new LinkedListQueue<T>()
+    while (!(queue1.isEmpty() || queue2.isEmpty())) {
+        if (less(queue1.peek(), queue2.peek())) {
+            res.enqueue(queue1.dequeue())
+        }
+        else {
+            res.enqueue(queue2.dequeue())
+        }
+    }
+    let rem: LinkedListQueue<T>;
+    if (queue1.isEmpty() && !queue2.isEmpty()) {
+        rem = queue2;
+    }
+    else { rem = queue1; }
+    while (!rem.isEmpty()) {
+        res.enqueue(rem.dequeue());
+    }
+    return res;
+}
+export { mergeSortTopDown, mergeSortBottomUp, fasterMerge, imporvedMergeSortTopDown, mergeSortedQueues }

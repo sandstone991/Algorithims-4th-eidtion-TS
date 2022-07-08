@@ -30,4 +30,5 @@ describe("insertionSort", () => {
         })
         expect(arr).toEqual([]);
     })
+
 })

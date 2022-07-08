@@ -1,4 +1,4 @@
-
+import { insertionSortWithBounds } from "./insertion-sort";
 //Recursive
 function mergeSortTopDown<T>(a: T[], less: (x: T, y: T) => boolean): void {
     let aux: T[] = Array(a.length);
@@ -90,6 +90,28 @@ function fasterMerge<T>(a: T[], less: (x: T, y: T) => boolean): void {
 
 }
 function imporvedMergeSortTopDown<T>(a: T[], less: (x: T, y: T) => boolean): void {
-    //pass
+    let aux: T[] = [...a];
+    (function sort(a: T[], aux: T[], low: number, high: number): void {
+        if (high <= low) return;
+        // if (high - low <= 15) return insertionSortWithBounds(a, low, high, less);
+        let mid: number = Math.floor((high - low) / 2) + low;
+        sort(aux, a, low, mid)        //sort left arr
+        sort(aux, a, mid + 1, high); //sort right arr
+        // if (a[mid] > a[mid + 1])
+        merge(a, aux, low, mid, high);
+    })(aux, a, 0, a.length - 1)
+    function merge(a: T[], aux: T[], low: number, mid: number, high: number): void {
+        let i = low, j = mid + 1
+        //k orArr counter i arr1 counter j arr2 counter
+        for (let k = low; k <= high; k++) {
+            //if arr1 is done dump the rest in array2
+            if (i > mid) aux[k] = a[j++];
+            //if arr2 id done dump the rest in array1
+            else if (j > high) aux[k] = a[i++];
+            //if both are not done compare to see who goes leto the ogArr
+            else if (less(a[j], a[i])) aux[k] = a[j++];
+            else aux[k] = a[i++];
+        }
+    }
 }
-export { mergeSortTopDown, mergeSortBottomUp, fasterMerge }
+export { mergeSortTopDown, mergeSortBottomUp, fasterMerge, imporvedMergeSortTopDown }

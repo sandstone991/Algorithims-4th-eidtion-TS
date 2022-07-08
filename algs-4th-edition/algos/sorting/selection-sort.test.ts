@@ -1,3 +1,4 @@
+import { randomDoubleArr } from "../../helpers/random";
 import selectionSort from "./selection-sort";
 describe("selectionSort", () => {
     it('should be able to sort strings', () => {
@@ -30,4 +31,5 @@ describe("selectionSort", () => {
         })
         expect(arr).toEqual([]);
     })
+
 })

@@ -1,4 +1,7 @@
-import { mergeSortTopDown, mergeSortBottomUp, fasterMerge } from "./merge-sort";
+import { randomDoubleArr } from "../../helpers/random";
+import { mergeSortTopDown, mergeSortBottomUp, fasterMerge, imporvedMergeSortTopDown } from "./merge-sort";
+import { sortCompare } from "./sort-compare";
+import { isSorted } from "./sort-helpers";
 describe("Recursive merge sort", () => {
     it('should be able to sort strings', () => {
         let arr = 'SORTEXAMPLE'.split('');
@@ -116,5 +119,59 @@ describe("fasterMerge", () => {
             else return false
         })
         expect(arr).toEqual([]);
+    })
+})
+describe("improvedMergeSort", () => {
+    it('should be able to sort strings', () => {
+        let arr = 'SORTEXAMPLE'.split('');
+        imporvedMergeSortTopDown(arr, (x, y) => {
+            if (x.charCodeAt(0) < y.charCodeAt(0)) return true
+            else return false
+        });
+        expect(arr.join("")).toBe("AEELMOPRSTX");
+    })
+
+    it('Should be able to sort numbers', () => {
+        let arr = [7, 6, 5, 4];
+        imporvedMergeSortTopDown(arr, (x, y) => {
+            return x - y < 0 ? true : false;
+        })
+        expect(arr).toEqual([4, 5, 6, 7])
+    })
+    it("odd number of elements shouldn't be a problem", () => {
+        let arr = [10, 9, 8, 7, 6];
+        imporvedMergeSortTopDown(arr, (x, y) => {
+            return x - y < 0 ? true : false;
+        })
+        expect(arr).toEqual([6, 7, 8, 9, 10])
+    })
+    it("should be able to sort objects", () => {
+        let arr = [{ x: 1 }, { x: -5 }, { x: 5 }, { x: 10 }];
+        imporvedMergeSortTopDown(arr, (x, y) => {
+            return x.x - y.x < 0 ? true : false;
+        })
+        expect(arr).toEqual([{ x: -5 }, { x: 1 }, { x: 5 }, { x: 10 }])
+    })
+    it("should be able to handle an empty array", () => {
+        let arr: string[] = [];
+        imporvedMergeSortTopDown(arr, (x, y) => {
+            if (x.charCodeAt(0) < y.charCodeAt(0)) return true
+            else return false
+        })
+        expect(arr).toEqual([]);
+    })
+    it('Should be able to handle a big array', () => {
+        let arr = randomDoubleArr(0, 10000);
+        imporvedMergeSortTopDown(arr, (x, y) => {
+            return x - y < 0 ? true : false;
+        })
+        expect(isSorted(arr, (x, y) => {
+            return x - y < 0 ? true : false;
+        })).toBeTruthy()
+    })
+    it('Should run faster than regular mergerSort', () => {
+        let ratio = sortCompare(imporvedMergeSortTopDown, mergeSortBottomUp, 10000, 100);
+        console.log(ratio);
+        expect(ratio).toBeGreaterThan(1)
     })
 })

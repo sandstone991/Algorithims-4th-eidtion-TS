@@ -4,6 +4,14 @@ interface Stack<Item> {
     isEmpty(): boolean,
     size(): number
 }
+class MyNode<Item> {
+    item: Item | null;
+    next: MyNode<Item> | null;
+    constructor(item: Item | null = null) {
+        this.item = item;
+        this.next = null
+    }
+}
 class FixedCapacityStack<Item> implements Stack<Item>{
     private stack: Item[] = [];
     private length: number;

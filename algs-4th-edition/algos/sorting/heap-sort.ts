@@ -25,5 +25,5 @@ function heapSort<T>(arr: T[], less: (x: T, y: T) => boolean) {
         }
     }
 }
-//test1
+//test2
 export { heapSort }
